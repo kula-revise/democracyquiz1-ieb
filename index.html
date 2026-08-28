@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What You Know Already | The coming of democracy | Kula Revise</title>
+<style>
+  :root {
+    /* Sunset clause: dark. Ink blue ground, two accents. */
+    --paper: #04161C;     /* page ground */
+    --sheet: #0A2630;     /* card sheet */
+    --white: #113842;     /* inner panels, sources, explanations */
+    --ink: #DFF6FA;       /* text */
+    --ink-soft: #A9CDD6;
+    --flame: #2AD9F0;     /* accent one: navigation and emphasis */
+    --on-flame: #04161C;  /* text on a solid flame block */
+    --leaf: #FF6B9D;      /* accent two: anything the learner earned */
+    --on-leaf: #04161C;   /* text on a solid leaf block */
+    --hair: rgba(223,246,250,0.18);
+    --rail: rgba(223,246,250,0.12);
+    --tint: rgba(255,107,157,0.09);
+    --tint-rule: rgba(255,107,157,0.40);
+    --slot-bg: rgba(223,246,250,0.04);
+    --chipA-bg: rgba(42,217,240,0.20); --chipA-fg: #8FE8F6;
+    --chipB-bg: rgba(139,176,185,0.16); --chipB-fg: #BEDDE4;
+    --chipN-bg: rgba(223,246,250,0.07); --chipN-fg: #9FC2CC;
+    --ev3-bg: rgba(255,107,157,0.14); --ev3-fg: #FF6B9D;
+    --ok-bg: rgba(147,217,138,0.18);
+    --bad-bg: rgba(255,138,110,0.12); --bad-border: #FF8A6E;
+    --btn-hover: #6FE6F6;
+    --start-hover: #0E2F38;
+    --sans: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --serif: Georgia, 'Times New Roman', serif;
+  }
+  /* Alternate mode. The series identity always lives in :root. This is its inversion. */
+  body.dark {
+      /* Cool slate. The navy ground inverted into blue paper, not bone,
+         so it cannot be mistaken for the Black Power light mode. */
+      --paper: #04161C;
+      --sheet: #0A2630;
+      --white: #113842;
+      --ink: #DFF6FA;
+      --ink-soft: #A9CDD6;
+      --flame: #2AD9F0;
+      --on-flame: #04161C;
+      --leaf: #FF6B9D;
+      --on-leaf: #04161C;
+      --hair: rgba(223,246,250,0.18);
+      --rail: rgba(223,246,250,0.12);
+      --tint: rgba(255,107,157,0.09);
+      --tint-rule: rgba(255,107,157,0.40);
+      --slot-bg: rgba(223,246,250,0.04);
+      --chipA-bg: rgba(42,217,240,0.20); --chipA-fg: #8FE8F6;
+      --chipB-bg: rgba(139,176,185,0.16); --chipB-fg: #BEDDE4;
+      --chipN-bg: rgba(223,246,250,0.07); --chipN-fg: #9FC2CC;
+      --ev3-bg: rgba(255,107,157,0.14); --ev3-fg: #FF6B9D;
+      --ok-bg: rgba(147,217,138,0.18);
+      --bad-bg: rgba(255,138,110,0.12); --bad-border: #FF8A6E;
+      --btn-hover: #6FE6F6;
+      --start-hover: #0E2F38;
+  }
+  .flourish .rule-ink { stroke: var(--ink); }
+  .flourish .rule-accent { stroke: var(--flame); }
+  .flourish .dot { fill: var(--flame); }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { min-height: 100vh; background: var(--paper); padding: 1.6rem 1rem 3rem; font-family: var(--serif); color: var(--ink); line-height: 1.6; }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header-block { text-align: center; margin-bottom: 1.8rem; }
+  .flourish { display: block; margin: 0 auto 1.2rem; width: 100%; max-width: 260px; height: 26px; }
+  .eyebrow { font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--flame); font-weight: 600; margin-bottom: 0.8rem; }
+  .masthead { font-family: var(--sans); font-size: clamp(1.9rem,5.4vw,2.9rem); font-weight: 600; line-height: 1.14; letter-spacing: -0.015em; }
+  .sub { font-size: 0.98rem; color: var(--ink-soft); margin-top: 0.55rem; }
+  .intro-box { background: var(--sheet); border-top: 2px solid var(--ink); padding: 1.2rem 1.35rem 1.35rem; margin-bottom: 1.3rem; }
+  .intro-label { font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--flame); font-weight: 600; margin-bottom: 0.55rem; }
+  .intro-text { line-height: 1.7; font-size: 0.98rem; }
+  .picker-label { font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--flame); font-weight: 600; margin: 1.4rem 0 0.7rem; }
+  .pick { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.2rem; background: var(--sheet); border: none; border-top: 1px solid var(--hair); cursor: pointer; font-family: var(--serif); text-align: left; font-size: 1rem; color: var(--ink); margin-bottom: 0.5rem; transition: all 0.18s; }
+  .pick:hover { background: var(--white); transform: translateX(3px); }
+  .pick .pn { font-family: var(--sans); font-size: 0.74rem; color: var(--ink-soft); }
+  .pick.full { background: var(--white); color: var(--ink); border-top: 2px solid var(--flame); }
+  .pick.full .pn { color: var(--flame); }
+  .top-bar { margin-bottom: 1.5rem; }
+  .top-meta { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--sans); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--flame); font-weight: 600; margin-bottom: 0.5rem; gap: 1rem; flex-wrap: wrap; }
+  .top-count { color: var(--ink-soft); font-weight: 400; text-transform: none; letter-spacing: 0.04em; }
+  .track { height: 2px; background: var(--rail); overflow: hidden; }
+  .fill { height: 100%; background: var(--flame); transition: width 0.35s ease; width: 0%; }
+  .card { background: var(--sheet); border-top: 2px solid var(--ink); padding: 1.5rem 1.4rem 1.6rem; margin-bottom: 1.2rem; }
+  .card h2 { font-family: var(--sans); font-size: 1.3rem; font-weight: 600; line-height: 1.25; margin-bottom: 0.8rem; }
+  .card p { font-size: 1rem; line-height: 1.72; margin-bottom: 0.9rem; }
+  .card p:last-child { margin-bottom: 0; }
+  .chip { display: inline-block; padding: 0.22rem 0.62rem; font-family: var(--sans); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; }
+  .chip-recall { background: var(--chipA-bg); color: var(--chipA-fg); }
+  .chip-understand { background: var(--chipB-bg); color: var(--chipB-fg); }
+  .chip-apply { background: var(--leaf); color: var(--on-leaf); }
+  .stage-tag { margin-bottom: 0.9rem; }
+  .q-text { font-size: 1.14rem; line-height: 1.5; margin-bottom: 1.15rem; }
+  .options { display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 1.15rem; }
+  .option { display: flex; align-items: flex-start; gap: 0.8rem; padding: 0.95rem 1.05rem; background: var(--paper); border: 1px solid var(--hair); cursor: pointer; font-family: inherit; text-align: left; font-size: 0.95rem; line-height: 1.55; color: var(--ink); transition: all 0.18s; width: 100%; }
+  .option:hover:not(:disabled) { background: var(--white); border-color: var(--flame); }
+  .option:disabled { cursor: default; }
+  .option.selected { background: var(--white); border-color: var(--ink); border-width: 2px; padding: 0.89rem 0.99rem; }
+  .option.correct { background: var(--ok-bg); border-color: var(--leaf); border-width: 2px; padding: 0.89rem 0.99rem; }
+  .option.wrong { background: var(--bad-bg); border-color: var(--bad-border); border-width: 2px; padding: 0.89rem 0.99rem; }
+  .option.dimmed { opacity: 0.5; }
+  .opt-letter {  font-weight: 600; color: var(--flame); min-width: 1.1rem; }
+  .opt-text { flex: 1; }
+  .opt-mark { font-weight: bold; font-size: 1.05rem; }
+  .explanation { background: var(--white); border-top: 1px solid var(--hair); border-left: 3px solid var(--flame); padding: 1.05rem 1.15rem; }
+  .expl-label { font-family: var(--sans); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--flame); font-weight: 600; margin-bottom: 0.5rem; }
+  .expl-text { line-height: 1.7; font-size: 0.93rem; }
+  .nav { display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 0.4rem; }
+  .btn-primary { padding: 0.76rem 1.5rem; background: var(--flame); border: none; color: var(--on-flame); font-family: var(--sans); font-size: 0.93rem; cursor: pointer; font-weight: 600; }
+  .btn-primary:hover:not(:disabled) { background: var(--btn-hover); }
+  .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-secondary { padding: 0.72rem 1.2rem; background: transparent; border: 1px solid var(--hair); color: var(--ink); font-family: var(--sans); font-size: 0.88rem; cursor: pointer; }
+  .score-row { display: grid; grid-template-columns: repeat(auto-fit,minmax(130px,1fr)); gap: 0.9rem; margin-bottom: 1.3rem; }
+  .score-block { background: var(--sheet); border-top: 2px solid var(--ink); padding: 1.25rem 0.8rem; text-align: center; }
+  .score-num { font-size: 2.3rem; font-weight: 700; line-height: 1; }
+  .score-den { font-size: 1.05rem; color: var(--ink-soft); font-weight: 400; }
+  .score-word { font-size: 1.5rem; font-weight: 700; color: var(--flame); line-height: 1.15; }
+  .score-label { font-family: var(--sans); font-size: 0.64rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); margin-top: 0.5rem; font-weight: 600; }
+  .grade-desc { text-align: center; margin-bottom: 1.5rem; padding: 0 0.5rem; line-height: 1.7; }
+  .breakdown { background: var(--sheet); border-top: 2px solid var(--ink); padding: 1.25rem; margin-bottom: 1.2rem; }
+  .breakdown-label { font-family: var(--sans); font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--leaf); font-weight: 600; margin-bottom: 1rem; text-align: center; }
+  .bd-row { display: grid; grid-template-columns: 1fr 100px 46px; gap: 0.7rem; align-items: center; margin-bottom: 0.7rem; font-size: 0.86rem; }
+  .bd-name {  font-size: 0.82rem; }
+  .bd-bar { height: 8px; background: var(--rail); overflow: hidden; }
+  .bd-fill { height: 100%; background: var(--leaf); transition: width 0.4s; }
+  .bd-score { color: var(--ink-soft); text-align: right; font-weight: 600;  }
+  .compare { background: var(--white); border-top: 1px solid var(--hair); border-left: 3px solid var(--leaf); padding: 1.1rem 1.2rem; margin-bottom: 1.2rem; }
+  .compare label { display: block; font-family: var(--sans); font-size: 0.8rem; margin-bottom: 0.5rem; }
+  .compare input { font-family: var(--sans); font-size: 1rem; padding: 0.5rem 0.6rem; width: 5.5rem; border: 1px solid var(--hair); background: var(--sheet); color: var(--ink); }
+  .compare-out { margin-top: 0.8rem; font-size: 0.95rem; line-height: 1.65; }
+  .hidden { display: none !important; }
+  .footer { text-align: center;  font-size: 0.76rem; color: var(--ink-soft); margin-top: 2rem; padding-top: 1.2rem; border-top: 1px solid var(--hair); line-height: 1.65; }
+
+.kdone-back { position: fixed; inset: 0; background: rgba(4,22,28,0.72); display: flex; align-items: center; justify-content: center; padding: 1.2rem; z-index: 60; }
+.kdone-back.hidden { display: none; }
+.kdone { background: var(--sheet); border-top: 3px solid var(--flame); max-width: 24rem; width: 100%; padding: 1.6rem 1.5rem 1.5rem; text-align: center; }
+.kdone-label { font-family: var(--sans, inherit); font-size: 0.64rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--leaf); font-weight: 600; margin-bottom: 0.7rem; }
+.kdone p { font-size: 1rem; line-height: 1.7; color: var(--ink); margin-bottom: 1.3rem; }
+
+    /* Mode toggle. Bottom right, thumb reachable, under any modal. */
+    #kula-mode-toggle {
+      position: fixed; bottom: 0.9rem; right: 0.9rem; z-index: 40;
+      display: flex; align-items: center; gap: 0.4rem;
+      font-family: var(--sans); font-size: 0.66rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.55rem 0.75rem; min-height: 2.4rem;
+      background: var(--sheet); color: var(--ink-soft);
+      border: 1px solid var(--hair); cursor: pointer;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.22);
+    }
+    #kula-mode-toggle:hover { color: var(--ink); border-color: var(--flame); }
+    #kula-mode-toggle:focus-visible { outline: 2px solid var(--flame); outline-offset: 2px; }
+    #kula-mode-toggle svg { width: 0.9rem; height: 0.9rem; fill: none; stroke: currentColor; stroke-width: 1.6; }
+    @media print { #kula-mode-toggle { display: none; } }
+  
+#kula-mode-toggle, #kula-mode-toggle { min-height: 44px !important; padding-top: 0.6rem !important; padding-bottom: 0.6rem !important; box-sizing: border-box !important; } /* kula: mobile tap targets. Every control a learner is expected to tap reaches 44px on the short axis at 360px. */ .evtoggle, .term-btn, .toggle-btn, #skip-btn, #chk, #cont, summary, details > summary { min-height: 44px !important; display: flex !important; align-items: center !important; box-sizing: border-box !important; } summary, details > summary { padding-top: 0.5rem !important; padding-bottom: 0.5rem !important; } #next-btn, #finish-btn, #cap-advance, #kdone-btn, #kretake-btn, #cont, #chk, #begin-btn, #back-btn, #redo-btn, #restart-btn, #skip-btn, .btn-primary, .btn-secondary, .btn-small { position: relative; z-index: 10000; } body { padding-bottom: 5.25rem !important; }
+#next-btn, #begin-btn, #kdone-btn, #kretake-btn { min-height: 44px !important; }#kula-mode-toggle #kmt-icon svg{width:1rem;height:1rem;display:block;}
+
+/* ============================================================
+   MOBILE. Added August 2026.
+   Everything here is inside a narrow-screen query except the tap
+   target floor, which applies at every width because a 44px
+   target is not worse on a desktop. Nothing above 560px changes.
+   ============================================================ */
+
+/* Tap targets. Anything a learner presses is at least 44px tall,
+   which is the smallest reliable target for a thumb. */
+.btn-primary, .btn-secondary, .btn-small, .btn-skip, .btn-begin,
+.term-btn, .toggle-btn, .option, .ord-chip, .ord-slot, .sort-tag,
+.mode-toggle, #kula-mode-toggle, button.go, .opt, .chip[role="button"],
+.tglr, .termsbtn, .kt-term {
+  min-height: 44px;
+}
+
+@media (max-width: 560px) {
+  /* the page gutter takes width the text needs more than the margin does */
+  body { padding-left: 0.75rem; padding-right: 0.75rem; }
+
+  /* two sort columns at 360px leave about 135px each, which is
+     narrower than the sentences that go in them */
+  .sort-cols, .bins { grid-template-columns: 1fr; }
+
+  /* the results breakdown keeps its three columns and gives the
+     label more of them */
+  .bd-row      { grid-template-columns: 1fr 72px 38px; gap: 0.5rem; font-size: 0.8rem; }
+  .breakdown-row { grid-template-columns: 1fr 68px 36px; gap: 0.5rem; font-size: 0.8rem; }
+  .marked      { grid-template-columns: 1fr; }
+
+  /* two buttons plus a gap can exceed the line, so let them wrap
+     and fill instead of overflowing */
+  .nav, .cap-actions, .actions { flex-wrap: wrap; }
+  .nav > *, .cap-actions > *, .actions > * { flex: 1 1 auto; }
+
+  /* display type set for a laptop is too large for a phone */
+  .cover-title { font-size: 2rem; line-height: 1.12; }
+  .story-num   { font-size: 2.6rem; }
+  h1 { font-size: 1.75rem; line-height: 1.18; }
+  h2 { font-size: 1.3rem; line-height: 1.25; }
+
+  /* card padding on top of body padding leaves too little for text */
+  .card, .sheet, .sleeve, .source { padding-left: 1rem; padding-right: 1rem; }
+
+  /* long attributions and quoted lines must not push the page sideways */
+  .attr, .source-attr, .src-attr, blockquote, pre { overflow-wrap: anywhere; }
+}
+
+@media (max-width: 400px) {
+  .bd-row      { grid-template-columns: 1fr 56px 34px; font-size: 0.76rem; }
+  .breakdown-row { grid-template-columns: 1fr 54px 32px; font-size: 0.76rem; }
+  .cover-title { font-size: 1.7rem; }
+  .story-num   { font-size: 2.2rem; }
+}
+
+/* Correct and wrong are coded green and red, below the identity accent.
+   Correct previously carried a green tint with a pink border, because --leaf
+   is pink, so the border said nothing about right or wrong. Text colour is set
+   explicitly: var(--ink) flips with the mode and would otherwise drift away
+   from a tint that does not. */
+:root{ --ok:#0F6B3F; --ok-tint:#E6F3EA; --no:#C1121F; --no-tint:#FBE3E4; --mark-ink:#08191E; }
+body.dark{ --ok:#6EDA9B; --ok-tint:#12301F; --no:#FF6B5E; --no-tint:#3A1512; --mark-ink:#DFF6FA; }
+.option.correct, .option-btn.correct, body.dark .option.correct, body.dark .option-btn.correct{
+  background:var(--ok-tint) !important; border-color:var(--ok) !important; border-width:2px !important; }
+.option.wrong, .option-btn.wrong, body.dark .option.wrong, body.dark .option-btn.wrong{
+  background:var(--no-tint) !important; border-color:var(--no) !important; border-width:2px !important; }
+.option.correct, .option.correct .opt-text, .option.wrong, .option.wrong .opt-text,
+.option-btn.correct, .option-btn.correct .opt-text, .option-btn.wrong, .option-btn.wrong .opt-text,
+body.dark .option.correct, body.dark .option.correct .opt-text,
+body.dark .option.wrong, body.dark .option.wrong .opt-text,
+body.dark .option-btn.correct, body.dark .option-btn.correct .opt-text,
+body.dark .option-btn.wrong, body.dark .option-btn.wrong .opt-text{ color:var(--mark-ink) !important; }
+.option.correct .opt-letter, .option.correct .opt-mark,
+.option-btn.correct .opt-letter, .option-btn.correct .opt-mark,
+body.dark .option.correct .opt-letter, body.dark .option.correct .opt-mark{
+  color:var(--ok) !important; font-weight:800 !important; }
+.option.wrong .opt-letter, .option.wrong .opt-mark,
+.option-btn.wrong .opt-letter, .option-btn.wrong .opt-mark,
+body.dark .option.wrong .opt-letter, body.dark .option.wrong .opt-mark{
+  color:var(--no) !important; font-weight:800 !important; }
+.explanation.ok, body.dark .explanation.ok{
+  background:var(--ok-tint) !important; border-left-color:var(--ok) !important; }
+.explanation.no, body.dark .explanation.no{
+  background:var(--no-tint) !important; border-left-color:var(--no) !important; }
+.explanation.ok, .explanation.ok .expl-text, .explanation.no, .explanation.no .expl-text,
+body.dark .explanation.ok, body.dark .explanation.ok .expl-text,
+body.dark .explanation.no, body.dark .explanation.no .expl-text{ color:var(--mark-ink) !important; }
+.explanation.ok .expl-label, body.dark .explanation.ok .expl-label{ color:var(--ok) !important; }
+.explanation.no .expl-label, body.dark .explanation.no .expl-label{ color:var(--no) !important; }
+</style>
+</head>
+<body>
+<script>/* kula: LMS embed events. "completed" fires once, when the learner reaches the closing screen. "advance" fires from the final button. */
+(function(){var sentCompleted=false;window.kulaEmbed=function(ev){if(ev==="completed"){if(sentCompleted)return;sentCompleted=true;}try{window.parent.postMessage({type:"lms-embed-event",version:"1.0",payload:{event:ev}},"*");}catch(e){}};})();</script>
+
+<script>
+try{ var st=localStorage.getItem("kula-mode");
+  if(st==="dark"){ document.body.classList.add("dark"); }
+  else if(st!=="light" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches){ document.body.classList.add("dark"); }
+}catch(e){}
+</script>
+<button id="kula-mode-toggle" type="button" onclick="kulaToggle()" aria-label="Switch between light and dark mode"><span id="kmt-icon"></span><span id="kmt-label"></span></button>
+<div class="container">
+
+  <div id="start-screen">
+    <div class="header-block">
+      <svg class="flourish" viewBox="0 0 260 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <line class="rule-ink" x1="0" y1="2" x2="130" y2="24" stroke-width="1.4"/>
+        <line class="rule-accent" x1="260" y1="2" x2="130" y2="24" stroke-width="1.4"/>
+        <circle class="dot" cx="130" cy="24" r="2.4"/>
+      </svg>
+      <div class="eyebrow">Kula Revise &middot; Grade 12 History &middot; Coming of Democracy</div>
+      <h1 class="masthead">What You Know Already</h1>
+      <div class="sub">Before Lesson 1</div>
+    </div>
+    <div class="intro-box">
+      <div class="intro-label">Before you start</div>
+      <p class="intro-text">Eighteen questions on the negotiations between 1989 and 1994. You have not done the lessons yet, so a low score here is expected and it is useful. It tells you which part of the story you are starting from. Answer honestly and do not look anything up.</p>
+    </div>
+    <div class="picker-label">Choose what to answer</div>
+    <div id="picker"></div>
+    <div class="footer">About 12 minutes for the full set. Answer, see why, move on.</div>
+  </div>
+
+  <div id="quiz-screen" class="hidden">
+    <div class="top-bar">
+      <div class="top-meta"><span id="sec-name">Section</span><span class="top-count" id="q-count">Question 1</span></div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </div>
+    <div class="card" id="q-card"></div>
+    <div class="nav"><button class="btn-primary" id="next-btn">Continue &rarr;</button></div>
+  </div>
+
+  <div id="results-screen" class="hidden">
+    <div class="header-block">
+      <div class="eyebrow">Before the lessons</div>
+      <h1 class="masthead" style="font-size: clamp(1.7rem,4.8vw,2.5rem);">Where You Stand</h1>
+    </div>
+    <div class="score-row">
+      <div class="score-block"><div class="score-num"><span id="r-correct">0</span><span class="score-den">/<span id="r-total">0</span></span></div><div class="score-label">Correct</div></div>
+      <div class="score-block"><div class="score-word" id="r-band">-</div><div class="score-label">Where you are</div></div>
+    </div>
+    <div class="grade-desc" id="r-desc"></div>
+    <div class="compare hidden" id="compare-box">
+      <label for="prior-in"></label>
+      <input type="number" id="prior-in" min="0" max="18" inputmode="numeric">
+      <button class="btn-secondary" id="prior-btn" style="margin-left:0.5rem;">Compare</button>
+      <div class="compare-out" id="compare-out"></div>
+    </div>
+    <div class="breakdown"><div class="breakdown-label">By kind of question</div><div id="r-tiers"></div></div>
+    <div class="breakdown"><div class="breakdown-label">By section</div><div id="r-sections"></div></div>
+    <div class="card">
+      <div class="stage-tag"><span class="chip chip-recall">Next</span></div>
+      <p>Write your score down, or take a screenshot of it. You will be asked for it again after Lesson 5, and the difference between the two is the only number here that means anything.</p><p>Continue to Lesson 1. The lessons do not assume you knew any of this.</p>
+    </div>
+    <div class="nav" style="justify-content:center;"><button class="btn-primary" id="kdone-btn">Continue to Lesson 1 &rarr;</button><button class="btn-secondary" id="redo-btn">&#8635; Choose again</button></div>
+    <div class="footer">Next: Lesson 1, why anyone sat down.</div>
+  </div>
+</div>
+
+<script>
+const ITEMS = [
+  {
+    "q": "Who replaced PW Botha as president in 1989?",
+    "options": [
+      "De Klerk",
+      "Pik Botha",
+      "Roelf Meyer",
+      "Constand Viljoen"
+    ],
+    "correct": 0,
+    "explanation": "{opt0} took over in 1989, first as party leader and then as president. {opt1} was the foreign minister and no relation, which is the mix-up you are most likely to make. Name the wrong De Klerk and your whole account of who decided what collapses.",
+    "section": "Why Anyone Sat Down",
+    "tier": "Recall"
+  },
+  {
+    "q": "On what date did De Klerk announce the unbanning of the ANC, the PAC and the SACP?",
+    "options": [
+      "2 February 1990",
+      "11 February 1990",
+      "2 May 1990",
+      "20 December 1991"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}, in his opening speech to parliament. {opt1} is the day Mandela walked out, nine days later. Those two February dates are easy for you to swap, and easy to get right if you fix the speech before the release.",
+    "section": "Why Anyone Sat Down",
+    "tier": "Recall"
+  },
+  {
+    "q": "Why is the position in 1989 described as a stalemate?",
+    "options": [
+      "Because neither side could impose an outcome on the other one",
+      "Because both sides had already agreed to stop fighting each other",
+      "Because the ANC had won but was not allowed to govern",
+      "Because the government had already begun repealing the apartheid laws"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. Emergency rule could not stop the protests, and the armed struggle could not beat the state. Option {opt3} says the apartheid laws were being repealed, and they were not: that came in June 1991. Use it and you lose a year and a half of the story.",
+    "section": "Why Anyone Sat Down",
+    "tier": "Understand"
+  },
+  {
+    "q": "A learner writes: 'De Klerk ended apartheid on 2 February 1990.' What is wrong with that?",
+    "options": [
+      "The announcement legalised the movements while the apartheid laws stayed",
+      "Nothing is wrong with it, because apartheid did end on that date",
+      "The date is wrong, since the announcement was made in May 1990",
+      "It was Mandela and not De Klerk who made that announcement"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. Unbanning organisations and freeing prisoners made talks possible, and it repealed no apartheid law. Say apartheid ended in February 1990 and you squash four years of negotiation into a single speech.",
+    "section": "Why Anyone Sat Down",
+    "tier": "Apply"
+  },
+  {
+    "q": "At the Pretoria Minute in August 1990, what did the ANC agree to do?",
+    "options": [
+      "Suspend the armed struggle",
+      "Join a coalition cabinet",
+      "End all mass protest",
+      "Give up on majority rule"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. The ANC did not disband its army, and {opt1} did not happen until after the 1994 election. Each side gave something up at the same moment, and that is what makes it a deal you can write about.",
+    "section": "Agreements Nobody Had to Keep",
+    "tier": "Recall"
+  },
+  {
+    "q": "How many parties were represented when CODESA opened on 20 December 1991?",
+    "options": [
+      "Nineteen parties",
+      "Twenty seven parties",
+      "Nine parties",
+      "Three parties"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. That first meeting is the one people call CODESA 1. Option {opt1} is how many organisations signed the National Peace Accord. That is the number you are most likely to confuse with this one.",
+    "section": "Agreements Nobody Had to Keep",
+    "tier": "Recall"
+  },
+  {
+    "q": "What did the CODESA Declaration of Intent commit the parties to?",
+    "options": [
+      "To a new constitution and an interim government for the country",
+      "To holding a democratic election within the following twelve months",
+      "To ending all political violence in the townships immediately",
+      "To sharing out cabinet posts once the election had been held"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. That is where everyone said they wanted to arrive. It set no election date and it ended no violence, and what it left unsettled is what broke the talks five months later. Keep that in view when you weigh it.",
+    "section": "Agreements Nobody Had to Keep",
+    "tier": "Understand"
+  },
+  {
+    "q": "A learner writes: 'The 1992 referendum showed that South Africans backed negotiation.' What is wrong?",
+    "options": [
+      "Only white voters were allowed to take part in that referendum",
+      "Nothing is wrong with the statement exactly as it is written",
+      "The referendum was held during 1993 and not during 1992",
+      "The result of that referendum was in fact a vote against reform"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. Only white voters could take part. The result still mattered, because it killed the claim that whites would never accept talks. Write South Africans when you mean white South Africans and you have made a different claim entirely.",
+    "section": "Agreements Nobody Had to Keep",
+    "tier": "Apply"
+  },
+  {
+    "q": "Which attack in June 1992 led the ANC to break off negotiations?",
+    "options": [
+      "The attack at Boipatong in the Vaal Triangle",
+      "The shooting of marchers at Bisho in the Ciskei",
+      "The AWB attack on the World Trade Centre",
+      "The Shell House shootings in Johannesburg in 1994"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}, on 17 June 1992. Option {opt1} came in September, {opt2} was 1993 and {opt3} was 1994. Put them in any other order and your causes stop working.",
+    "section": "The Year It Should Have Ended",
+    "tier": "Recall"
+  },
+  {
+    "q": "Why did the ANC, the SACP and COSATU launch rolling mass action in 1992?",
+    "options": [
+      "To keep pressure on the government while the talks were suspended",
+      "To force the Conservative Party to attend the CODESA negotiations",
+      "To persuade the United Nations to send troops into the country",
+      "To prepare their own supporters for the coming general election"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. With CODESA gone, mass action was the only pressure the ANC had left. Option {opt2} is wrong, because the United Nations sent observers rather than troops. The distinction matters if you are arguing who forced the parties back.",
+    "section": "The Year It Should Have Ended",
+    "tier": "Understand"
+  },
+  {
+    "q": "What did the Record of Understanding of September 1992 achieve?",
+    "options": [
+      "It restarted the negotiations after they had collapsed",
+      "It set the date for the country's first democratic election",
+      "It created the Government of National Unity straight away",
+      "It ended the state of emergency right across the country"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. The government agreed to free more prisoners, fence the hostels and ban weapons at rallies. Option {opt1} came later. Those three concessions are the turning point of the whole year, so you should be able to name all three.",
+    "section": "The Year It Should Have Ended",
+    "tier": "Understand"
+  },
+  {
+    "q": "A learner writes: 'Chris Hani was assassinated in 1993, which ended the negotiations.' What is wrong?",
+    "options": [
+      "The talks carried on and an election date followed within weeks",
+      "Nothing is wrong, because the negotiations did end at that point",
+      "The year is wrong, since Hani was killed during 1992 instead",
+      "Hani had no involvement in the negotiation process at all"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. Hani was killed on 10 April 1993 and the effect was the opposite of what anyone expected. The shock pushed the parties into setting an election date within eight weeks. You will need that when you argue how far violence damaged the talks.",
+    "section": "The Year It Should Have Ended",
+    "tier": "Apply"
+  },
+  {
+    "q": "Under the sunset clause, which parties would take seats in a Government of National Unity?",
+    "options": [
+      "Any party winning more than five per cent of the vote",
+      "Only the ANC and the National Party after the 1994 election",
+      "Any party that had attended the CODESA talks in 1991",
+      "The three largest parties in each of the nine provinces"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. That threshold is why Inkatha, on 10,5 per cent, took a seat in the cabinet. The five per cent is the detail that shows you know the clause rather than the idea of it.",
+    "section": "Getting to the Vote",
+    "tier": "Recall"
+  },
+  {
+    "q": "How long before the election did the Inkatha Freedom Party agree to take part?",
+    "options": [
+      "About one week",
+      "About six months",
+      "About one year",
+      "About three months"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}, which is why stickers had to be added to ballot papers already printed. Buthelezi had spent months threatening to stay out. Use the stickers as your evidence, because a small administrative fact shows the margin better than an adjective does.",
+    "section": "Getting to the Vote",
+    "tier": "Recall"
+  },
+  {
+    "q": "Why did the late entry of the Inkatha Freedom Party matter so much?",
+    "options": [
+      "Because a boycott would have made the result easy to challenge",
+      "Because the party had been expected to win the election outright",
+      "Because ballot papers for the election had not yet been designed",
+      "Because the election would otherwise have been postponed again"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. An election run while Inkatha boycotted its own province would have been argued about from day one. Nobody expected Inkatha to win, and the date never moved, so keep the two apart in your answer.",
+    "section": "Getting to the Vote",
+    "tier": "Understand"
+  },
+  {
+    "q": "What share of the vote did the ANC win in the 1994 election?",
+    "options": [
+      "62,7 per cent",
+      "20,4 per cent",
+      "10,5 per cent",
+      "50,1 per cent"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. The National Party took {opt1} and Inkatha {opt2}. All three figures are worth learning, because saying the ANC won comfortably tells your marker almost nothing.",
+    "section": "The Settlement Itself",
+    "tier": "Recall"
+  },
+  {
+    "q": "Why did the ANC govern alongside other parties after winning the election?",
+    "options": [
+      "Because the sunset clause had already committed it to doing so",
+      "Because it had not won enough seats to govern on its own",
+      "Because the interim constitution demanded a two thirds majority vote",
+      "Because the National Party had refused to accept the election result"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. It agreed to share government before a single vote was cast. On 62,7 per cent it could have ruled alone. You will not find stronger evidence anywhere in this topic.",
+    "section": "The Settlement Itself",
+    "tier": "Understand"
+  },
+  {
+    "q": "A learner ends this essay with a paragraph on the final report of the Truth and Reconciliation Commission. What is wrong?",
+    "options": [
+      "It sits outside a question that ends with democracy in 1994",
+      "Nothing is wrong, since the commission is part of this same topic",
+      "The final report was published before the 1994 election was held",
+      "The commission is examined only in Paper 1 of the examination"
+    ],
+    "correct": 0,
+    "explanation": "{opt0}. The commission is examined, but as a source question on this same paper. This question stops in 1994, so a paragraph on the years afterwards earns you nothing however well you write it.",
+    "section": "The Settlement Itself",
+    "tier": "Apply"
+  }
+];
+
+const BANDS = [
+  {
+    "min": 84,
+    "band": "Excellent",
+    "desc": "You already know this period well. The lessons will be about turning what you know into an argument. Start with Lesson 1."
+  },
+  {
+    "min": 67,
+    "band": "Strong",
+    "desc": "A good base. Continue to Lesson 1 and pay attention to the dates, because that is usually where a strong base leaks marks."
+  },
+  {
+    "min": 50,
+    "band": "Solid",
+    "desc": "Half of it is there. Continue to Lesson 1 and the rest will build on what you have."
+  },
+  {
+    "min": 34,
+    "band": "Patchy",
+    "desc": "Some of it has stuck and some has not, which is exactly what a check before the lessons is for. Start Lesson 1."
+  },
+  {
+    "min": 0,
+    "band": "Just starting",
+    "desc": "A low score before you have studied a topic is the normal starting point, not a warning. Nothing here is wrong with you and nothing needs retaking. Continue to Lesson 1."
+  }
+];
+
+const SHOW_COMPARE = false;
+
+const TIERS = ["Recall","Understand","Apply"];
+const TIERCLS = { Recall:"chip-recall", Understand:"chip-understand", Apply:"chip-apply" };
+const TIERLABEL = {
+  Recall:"Recall &middot; the fact itself",
+  Understand:"Understand &middot; what it means",
+  Apply:"Apply &middot; spot the mistake"
+};
+
+const state = { items:[], idx:0, answers:{}, revealed:{}, order:{}, scope:"full" };
+
+const startScreen=document.getElementById("start-screen");
+const quizScreen=document.getElementById("quiz-screen");
+const resultsScreen=document.getElementById("results-screen");
+const qCard=document.getElementById("q-card");
+const nextBtn=document.getElementById("next-btn");
+
+function sectionNames(){
+  const out=[];
+  ITEMS.forEach(i=>{ if(!out.includes(i.section)) out.push(i.section); });
+  return out;
+}
+function buildPicker(){
+  const p=document.getElementById("picker");
+  p.innerHTML="";
+  const full=document.createElement("button");
+  full.className="pick full";
+  full.innerHTML='<span>The Full Set</span><span class="pn">'+ITEMS.length+' questions</span>';
+  full.addEventListener("click",()=>start("full"));
+  p.appendChild(full);
+  sectionNames().forEach(name=>{
+    const n=ITEMS.filter(i=>i.section===name).length;
+    const b=document.createElement("button");
+    b.className="pick";
+    b.innerHTML='<span>'+name+'</span><span class="pn">'+n+' questions</span>';
+    b.addEventListener("click",()=>start(name));
+    p.appendChild(b);
+  });
+}
+function start(scope){
+  state.scope=scope;
+  state.items = scope==="full" ? ITEMS.slice() : ITEMS.filter(i=>i.section===scope);
+  state.idx=0; state.answers={}; state.revealed={}; state.order={};
+  startScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  render();
+}
+nextBtn.addEventListener("click",()=>{
+  if(state.idx<state.items.length-1){ state.idx++; render(); } else { showResults(); }
+});
+document.getElementById("redo-btn").addEventListener("click",()=>location.reload());
+
+function render(){
+  const item=state.items[state.idx];
+  const gi=state.idx;
+  document.getElementById("sec-name").textContent=item.section;
+  document.getElementById("q-count").textContent="Question "+(gi+1)+" of "+state.items.length;
+  document.getElementById("fill").style.width=(((gi+1)/state.items.length)*100)+"%";
+  if(!state.order[gi]){
+    const arr=item.options.map((_,i)=>i);
+    for(let i=arr.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=arr[i]; arr[i]=arr[j]; arr[j]=t; }
+    state.order[gi]=arr;
+  }
+  const order=state.order[gi];
+  const revealed=state.revealed[gi];
+  const selected=state.answers[gi];
+  // {optN} resolves to the letter that option N carries on this learner's screen.
+  const letterFor={};
+  order.forEach((orig,pos)=>{ letterFor[orig]=String.fromCharCode(65+pos); });
+  const resolve=(s)=>String(s).replace(/\{opt(\d+)\}/g,(m,n)=>letterFor[n]!==undefined?letterFor[n]:m);
+  let optsHtml="";
+  order.forEach((orig,pos)=>{
+    let cls="option"; let mark="";
+    if(revealed){
+      if(orig===item.correct){ cls+=" correct"; mark='<span class="opt-mark">&#10003;</span>'; }
+      else if(orig===selected){ cls+=" wrong"; mark='<span class="opt-mark">&#10007;</span>'; }
+      else cls+=" dimmed";
+    } else if(orig===selected) cls+=" selected";
+    optsHtml+='<button class="'+cls+'" data-opt="'+orig+'" '+(revealed?"disabled":"")+'>'
+      +'<span class="opt-letter">'+String.fromCharCode(65+pos)+'</span>'
+      +'<span class="opt-text">'+resolve(item.options[orig])+'</span>'+mark+'</button>';
+  });
+  qCard.innerHTML='<div class="stage-tag"><span class="chip '+TIERCLS[item.tier]+'">'+TIERLABEL[item.tier]+'</span></div>'
+    +'<div class="q-text">'+resolve(item.q)+'</div><div class="options">'+optsHtml+'</div>'
+    +(revealed?'<div class="explanation"><div class="expl-label">Why</div><div class="expl-text">'+resolve(item.explanation)+'</div></div>':'');
+  if(!revealed){
+    qCard.querySelectorAll("[data-opt]").forEach(b=>{
+      b.addEventListener("click",()=>{ state.answers[gi]=parseInt(b.dataset.opt); state.revealed[gi]=true; render(); });
+    });
+  }
+  nextBtn.disabled=!state.revealed[gi];
+  nextBtn.innerHTML = state.idx===state.items.length-1 ? "See results &rarr;" : "Continue &rarr;";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showResults(){
+  kulaEmbed("completed");
+  quizScreen.classList.add("hidden");
+  resultsScreen.classList.remove("hidden");
+  let correct=0;
+  state.items.forEach((it,i)=>{ if(state.answers[i]===it.correct) correct++; });
+  const total=state.items.length;
+  const pct=total?Math.round(correct/total*100):0;
+  document.getElementById("r-correct").textContent=correct;
+  document.getElementById("r-total").textContent=total;
+  let band="-",desc="";
+  for(const b of BANDS){ if(pct>=b.min){ band=b.band; desc=b.desc; break; } }
+  document.getElementById("r-band").textContent=band;
+  document.getElementById("r-desc").textContent=desc;
+
+  const tb=document.getElementById("r-tiers"); tb.innerHTML="";
+  TIERS.forEach(t=>{
+    const ids=state.items.map((it,i)=>it.tier===t?i:null).filter(i=>i!==null);
+    if(!ids.length) return;
+    const got=ids.filter(i=>state.answers[i]===state.items[i].correct).length;
+    const p=Math.round(got/ids.length*100);
+    tb.innerHTML+='<div class="bd-row"><div class="bd-name">'+t+'</div><div class="bd-bar"><div class="bd-fill" style="width:'+p+'%"></div></div><div class="bd-score">'+got+'/'+ids.length+'</div></div>';
+  });
+  const sb=document.getElementById("r-sections"); sb.innerHTML="";
+  const names=[]; state.items.forEach(i=>{ if(!names.includes(i.section)) names.push(i.section); });
+  names.forEach(n=>{
+    const ids=state.items.map((it,i)=>it.section===n?i:null).filter(i=>i!==null);
+    const got=ids.filter(i=>state.answers[i]===state.items[i].correct).length;
+    const p=Math.round(got/ids.length*100);
+    sb.innerHTML+='<div class="bd-row"><div class="bd-name">'+n+'</div><div class="bd-bar"><div class="bd-fill" style="width:'+p+'%"></div></div><div class="bd-score">'+got+'/'+ids.length+'</div></div>';
+  });
+
+  if(SHOW_COMPARE && state.scope==="full"){
+    const box=document.getElementById("compare-box");
+    box.classList.remove("hidden");
+    const params=new URLSearchParams(window.location.search);
+    const prior=params.get("prior");
+    const input=document.getElementById("prior-in");
+    if(prior!==null && prior!=="" && !isNaN(parseInt(prior))) input.value=parseInt(prior);
+    const run=()=>{
+      const v=parseInt(input.value);
+      const out=document.getElementById("compare-out");
+      if(isNaN(v)){ out.textContent="Type the score you got before the lessons, then press compare."; return; }
+      const diff=correct-v;
+      if(diff>0) out.textContent="You have gone from "+v+" out of "+total+" to "+correct+". That is "+diff+" more facts holding than before you started the lessons.";
+      else if(diff===0) out.textContent="Same score as before, "+correct+" out of "+total+". Different questions, though, so look at the section breakdown to see where the gaps moved.";
+      else out.textContent="You scored "+v+" before and "+correct+" now. Check the section breakdown, go back to the weakest lesson, and take this again.";
+    };
+    document.getElementById("prior-btn").addEventListener("click",run);
+    if(input.value!=="") run();
+  }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+buildPicker();
+
+
+(function(){document.addEventListener("click",function(e){if(e.target.closest&&e.target.closest("#kdone-btn")){kulaEmbed("advance");}});})();
+
+var K="kula-theme-2";var SUN="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='4.2'/><path d='M12 1.6v2M12 20.4v2M3.6 12h-2M22.4 12h-2M5.6 5.6 4.2 4.2M19.8 19.8l-1.4-1.4M18.4 5.6l1.4-1.4M4.2 19.8l1.4-1.4'/></svg>";var MOON="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z'/></svg>";function paint(){var d=document.body.classList.contains("dark");var ic=document.getElementById("kmt-icon"),la=document.getElementById("kmt-label");if(ic)ic.innerHTML=d?SUN:MOON;if(la)la.textContent=d?"Light mode":"Dark mode";}window.kulaToggle=function(){document.body.classList.toggle("dark");try{localStorage.setItem(K,document.body.classList.contains("dark")?"dark":"light")}catch(e){}paint();};try{var st=localStorage.getItem(K);if(st==="dark")document.body.classList.add("dark");else if(st!=="light"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)document.body.classList.add("dark");}catch(e){}paint();
+</script>
+
+  
+
+<script>
+/* The Why block takes the colour of the outcome. Done after render rather than
+   inside the template strings: this engine builds the block in three different
+   places, and editing template strings has broken files before. */
+(function(){
+  var obs = null;
+  function tag(){
+    if(!document || !document.querySelector) return;
+    var ex = document.querySelector(".explanation");
+    if(!ex) return;
+    var right;
+    if(document.querySelector(".option.wrong, .option-btn.wrong")) right = false;
+    else if(document.querySelector(".option.correct, .option-btn.correct")) right = true;
+    else return;
+    var wantCls = right ? "ok" : "no";
+    var wantLab = right ? "Correct" : "Not this one";
+    var lab = ex.querySelector(".expl-label");
+    /* Write only when something actually differs. Writing every time made the
+       observer below fire on our own change, which called tag again, which
+       wrote again. That loop froze the page and clicks appeared to do nothing. */
+    if(ex.classList.contains(wantCls) && (!lab || lab.textContent === wantLab)) return;
+    if(obs) obs.disconnect();
+    ex.classList.toggle("ok", right);
+    ex.classList.toggle("no", !right);
+    if(lab && lab.textContent !== wantLab) lab.textContent = wantLab;
+    if(obs && document.body) obs.observe(document.body,{childList:true,subtree:true});
+  }
+  function safeTag(){ try{ tag(); }catch(e){} }
+  document.addEventListener("click", safeTag);
+  document.addEventListener("click", function(){ setTimeout(safeTag, 0); });
+  if(document.body){ obs = new MutationObserver(safeTag); obs.observe(document.body,{childList:true,subtree:true}); }
+})();
+</script>
+</body>
+</html>
